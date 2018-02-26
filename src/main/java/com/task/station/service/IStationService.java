@@ -1,7 +1,7 @@
 package com.task.station.service;
 
 import com.task.station.domain.Station;
-import com.task.station.error.ServiceException;
+import com.task.station.error.StationNotFoundException;
 
 import java.util.List;
 
@@ -34,13 +34,13 @@ public interface IStationService {
      * @param station station object
      * @return updated object
      */
-    Station update(Station station) throws ServiceException;
+    Station update(Station station) throws StationNotFoundException;
 
     /**
      * deletes station by id
      * @param stationId station id
      */
-    void delete(String stationId) throws ServiceException;
+    void delete(String stationId) throws StationNotFoundException;
 
     /**
      * finds stations with hd enabled

@@ -1,7 +1,7 @@
 package com.task.station.service;
 
 import com.task.station.domain.Station;
-import com.task.station.error.ServiceException;
+import com.task.station.error.StationNotFoundException;
 import com.task.station.repository.StationRepository;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -37,21 +37,21 @@ public class StationService implements IStationService {
     }
 
     @Override
-    public Station update(Station station) throws ServiceException {
+    public Station update(Station station) throws StationNotFoundException {
         if (!stationRepository.exists(station.getStationId())) {
-            throw new ServiceException("Station with Id :" + station.getStationId() + " not found.");
+            throw new StationNotFoundException("Station with Id :" + station.getStationId() + " not found.");
         }
         stationRepository.save(station);
         return station;
     }
 
     @Override
-    public void delete(String stationId) throws ServiceException{
+    public void delete(String stationId) throws StationNotFoundException {
         try {
             stationRepository.delete(stationId);
         } catch (EmptyResultDataAccessException e) {
             LOGGER.error("Station with Id :" + stationId + " not found.", e);
-            throw new ServiceException("Station with Id :" + stationId + " not found.", e);
+            throw new StationNotFoundException("Station with Id :" + stationId + " not found.", e);
         }
     }
 

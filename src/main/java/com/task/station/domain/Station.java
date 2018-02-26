@@ -1,5 +1,6 @@
 package com.task.station.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.Objects;
         @NamedQuery(name = "Station.findByName", query = "SELECT s FROM Station s WHERE LOWER(s.name) = LOWER(?1)"),
         @NamedQuery(name = "Station.findHdEnabled", query = "SELECT s FROM Station s WHERE s.hdEnabled = true")
 })
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Station implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")

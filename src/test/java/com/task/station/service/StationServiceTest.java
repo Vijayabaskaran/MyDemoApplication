@@ -1,7 +1,7 @@
 package com.task.station.service;
 
 import com.task.station.domain.Station;
-import com.task.station.error.ServiceException;
+import com.task.station.error.StationNotFoundException;
 import com.task.station.repository.StationRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -99,8 +99,8 @@ public class StationServiceTest {
     public void updateFailTest() {
         try {
             stationService.update(station2);
-            Assert.assertTrue("update should throws ServiceException", false);
-        } catch (ServiceException e) {
+            Assert.assertTrue("update should throws StationNotFoundException", false);
+        } catch (StationNotFoundException e) {
             Assert.assertTrue(true);
         }
     }
@@ -114,8 +114,8 @@ public class StationServiceTest {
     public void deleteStationFailTest() throws Exception {
         try {
             stationService.delete("test-wrong-id");
-            Assert.assertTrue("delete should throws ServiceException", false);
-        } catch (ServiceException e) {
+            Assert.assertTrue("delete should throws StationNotFoundException", false);
+        } catch (StationNotFoundException e) {
             Assert.assertTrue(true);
         }
     }
