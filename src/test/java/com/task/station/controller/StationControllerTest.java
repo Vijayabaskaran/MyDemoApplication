@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,11 +45,14 @@ public class StationControllerTest {
         station.setStationId("test-id");
         CreateUpdateStationRequest request = new CreateUpdateStationRequest("testName", "na", true);
         given(stationService.create(any())).willReturn(station);
-        mvc.perform(post("/api/station")
+       MvcResult mvcOutput = mvc.perform(post("/api/station")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("stationId", is(station.getStationId())));
+                .andExpect(jsonPath("stationId", is(station.getStationId()))).andReturn();
+        System.out.println(mvcOutput.getResponse().getIncludedUrl());
+        System.out.println(mvcOutput.getResponse().getContentAsString());
+        
     }
 
     @Test
@@ -62,7 +66,7 @@ public class StationControllerTest {
                 .andExpect(jsonPath("stationName", is("testName")))
                 .andExpect(jsonPath("callSign", is("na")))
                 .andExpect(jsonPath("hdEnabled", is(true)));
-    }
+            }
 
     @Test
     public void getStationByIdNotFoundTest() throws Exception {
